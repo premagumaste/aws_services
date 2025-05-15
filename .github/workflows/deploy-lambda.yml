@@ -1,0 +1,45 @@
+name: Deploy Lambda to AWS
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    name: Build and Deploy
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Set up JDK 8
+        uses: actions/setup-java@v3
+        with:
+          java-version: '8'
+
+      - name: Build with Maven
+        run: mvn clean package
+
+      - name: Log in to Amazon ECR
+        uses: aws-actions/amazon-ecr-login@v1
+
+      - name: Build Docker Image
+        run: docker build -t my-lambda-java .
+
+      - name: Tag Docker Image
+        run: docker tag my-lambda-java:latest 191822567965.dkr.ecr.ap-south-1.amazonaws.com/aws-service-repository:latest
+
+      - name: Push to ECR
+        run: docker push 191822567965.dkr.ecr.ap-south-1.amazonaws.com/aws-service-repository:latest
+
+      - name: Deploy Lambda
+        run: |
+          aws lambda update-function-code \
+            --function-name myLambdaFunction \
+            --image-uri 191822567965.dkr.ecr.ap-south-1.amazonaws.com/aws-service-repository:latest
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_REGION: ap-south-1
