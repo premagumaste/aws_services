@@ -1,3 +1,5 @@
+package com.services;
+
 public class Order {
     private String orderId;
     private double amount;
@@ -14,7 +16,7 @@ public class Order {
 
     @Override
     public String toString() {
-        return "Order{" +
+        return "com.services.Order{" +
                 "orderId='" + orderId + '\'' +
                 ", amount=" + amount +
                 ", item='" + item + '\'' +

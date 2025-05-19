@@ -5,4 +5,4 @@ FROM public.ecr.aws/lambda/java:8
 COPY target/AWS_SERVICES-1-SNAPSHOT.jar ${LAMBDA_TASK_ROOT}/app.jar
 
 # Set the handler class
-CMD ["FileUploadEventLambdaFunction::handleRequest"]
+CMD ["com.services.FileUploadEventLambdaFunction::handleRequest"]

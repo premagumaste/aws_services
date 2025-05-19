@@ -1,2 +1,2 @@
-Order.class
-FileUploadEventLambdaFunction.class
+com\services\Order.class
+com\services\FileUploadEventLambdaFunction.class

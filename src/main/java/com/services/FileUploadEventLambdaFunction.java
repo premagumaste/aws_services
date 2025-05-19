@@ -1,3 +1,5 @@
+package com.services;
+
 import com.amazonaws.services.lambda.runtime.Context;
 import com.amazonaws.services.lambda.runtime.RequestHandler;
 import software.amazon.awssdk.core.sync.RequestBody;
@@ -20,7 +22,7 @@ public class FileUploadEventLambdaFunction implements RequestHandler<Order,Strin
      * Models.Record to model the input event.
      */
    // java 21 feature record
-//    public record Order(String orderId, double amount, String item) {
+//    public record com.services.Order(String orderId, double amount, String item) {
 //    return new Record();
 //    }
 
